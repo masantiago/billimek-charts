@@ -108,6 +108,16 @@ spec:
         - name: Z2MA_SETTINGS__HOMEASSISTANTDISCOVERYBASETOPIC
           value: {{ .Values.config.advanced.homeassistant_discovery_topic }}
         {{- end }}
+        - name: Z2MA_SETTINGS__LOWBATTERYTHRESHOLD
+          value: {{ .Values.ui.settings.lowBatteryThreshold | quote }}
+        - name: Z2MA_SETTINGS__ALLOWJOINTIMEOUT
+          value: {{ .Values.ui.settings.allowJoinTimeout | quote }}
+        - name: Z2MA_SETTINGS__AUTOSETLASTSEEN
+          value: {{ .Values.ui.settings.autosetLastSeen | quote }}
+        - name: Z2MA_SETTINGS__DEVICESPOLLINGSCHEDULE
+          value: {{ .Values.ui.settings.devicesPollingSchedule | quote }}
+        - name: Z2MA_SETTINGS__NETWORKSCANSCHEDULE
+          value: {{ .Values.ui.settings.networkScanSchedule | quote }}
       {{- end }}
       volumes:
       - name: zigbee2mqtt

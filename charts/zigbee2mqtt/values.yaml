@@ -38,6 +38,7 @@ config:
     network_key: GENERATE
     log_output:
       - console
+
 ui:
   enabled: true
   image:
@@ -45,6 +46,13 @@ ui:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is latest.
     tag: ""
+  # zigbee settings with default from https://github.com/yllibed/Zigbee2MqttAssistant
+  settings:
+    lowBatteryThreshold: 30
+    allowJoinTimeout: 20
+    autosetLastSeen: false
+    devicesPollingSchedule: "*/12 * * * *"
+    networkScanSchedule: "0 */3 * * *"
 
 # Probes configuration
 probes:
