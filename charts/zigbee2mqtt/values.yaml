@@ -100,7 +100,7 @@ ingress:
   #      - chart-example.local
 
 persistence:
-  enabled: False
+  enabled: false
   annotations: {}
   ## zigbee2mqtt data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
