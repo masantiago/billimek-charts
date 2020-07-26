@@ -86,7 +86,7 @@ spec:
           value: {{ $domain }}
         {{- if eq $protocol "mqtts"}}
         - name: Z2MA_SETTINGS__MQTTSECURE
-          value: true
+          value: "true"
         {{- end }}
         {{- if $port }}
         - name: Z2MA_SETTINGS__MQTTPORT
