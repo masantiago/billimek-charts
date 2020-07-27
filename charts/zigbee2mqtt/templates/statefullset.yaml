@@ -64,17 +64,17 @@ spec:
             path: /
             port: http
             scheme: HTTP
-          initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
-          failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
-          timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+          initialDelaySeconds: {{ .Values.ui.probes.liveness.initialDelaySeconds }}
+          failureThreshold: {{ .Values.ui.probes.liveness.failureThreshold }}
+          timeoutSeconds: {{ .Values.ui.probes.liveness.timeoutSeconds }}
         readinessProbe:
           httpGet:
             path: /
             port: http
             scheme: HTTP
-          initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
-          failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
-          timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+          initialDelaySeconds: {{ .Values.ui.probes.readiness.initialDelaySeconds }}
+          failureThreshold: {{ .Values.ui.probes.readiness.failureThreshold }}
+          timeoutSeconds: {{ .Values.ui.probes.readiness.timeoutSeconds }}
         env:
         - name: TZ
           value: {{ .Values.timezone }}

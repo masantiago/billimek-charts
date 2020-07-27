@@ -1,20 +1,20 @@
-{{- if and .Values.ui.enabled .Values.ingress.enabled -}}
+{{- if and .Values.ui.enabled .Values.ui.ingress.enabled -}}
 {{- $fullName := include "zigbee2mqtt.fullname" . -}}
-{{- $ingressPath := .Values.ingress.path -}}
+{{- $ingressPath := .Values.ui.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
 {{ include "zigbee2mqtt.labels" . | indent 4 }}
-  {{- with .Values.ingress.annotations }}
+  {{- with .Values.ui.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
+{{- if .Values.ui.ingress.tls }}
   tls:
-  {{- range .Values.ingress.tls }}
+  {{- range .Values.ui.ingress.tls }}
     - hosts:
       {{- range .hosts }}
         - {{ . | quote }}
@@ -23,7 +23,7 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
+  {{- range .Values.ui.ingress.hosts }}
     - host: {{ . | quote }}
       http:
         paths:
