@@ -39,15 +39,17 @@ config:
     log_output:
       - console
 
-ui:
+assistant:
   enabled: true
   image:
     repository: carldebilly/zigbee2mqttassistant
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is latest.
     tag: ""
-  # zigbee settings with default from https://github.com/yllibed/Zigbee2MqttAssistant
-  settings:
+  # Config values from https://github.com/yllibed/Zigbee2MqttAssistant-
+  # MQTT (connection or topic) parameters come from general config, but they can be overriden.
+  # They are case insensitive.
+  config:
     lowBatteryThreshold: 30
     allowJoinTimeout: 20
     autosetLastSeen: false

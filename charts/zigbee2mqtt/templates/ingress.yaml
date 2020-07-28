@@ -1,4 +1,4 @@
-{{- if and .Values.ui.enabled .Values.ingress.enabled -}}
+{{- if and .Values.assistant.enabled .Values.ingress.enabled -}}
 {{- $fullName := include "zigbee2mqtt.fullname" . -}}
 {{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1

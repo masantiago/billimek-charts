@@ -1,4 +1,4 @@
-{{- if .Values.ui.enabled -}}
+{{- if .Values.assistant.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -46,6 +46,5 @@ spec:
       nodePort: {{.Values.service.nodePort}}
 {{ end }}
   selector:
-    app.kubernetes.io/name: {{ include "zigbee2mqtt.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "zigbee2mqtt.selectorLabels" . | nindent 4 }}
 {{- end }}

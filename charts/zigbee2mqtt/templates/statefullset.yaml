@@ -51,10 +51,10 @@ spec:
           mountPath: /data
         - name: sniffer
           mountPath: {{ .Values.config.serial.port }}
-      {{- if .Values.ui.enabled }}
-      - name: {{ .Chart.Name }}-ui
-        image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag | default "latest" }}"
-        imagePullPolicy: {{ .Values.ui.image.pullPolicy }}        
+      {{- if .Values.assistant.enabled }}
+      - name: {{ .Chart.Name }}assistant
+        image: "{{ .Values.assistant.image.repository }}:{{ .Values.assistant.image.tag | default "latest" }}"
+        imagePullPolicy: {{ .Values.assistant.image.pullPolicy }}        
         ports:
         - name: http
           containerPort: 80
@@ -75,49 +75,9 @@ spec:
           initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
           failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
           timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
-        env:
-        - name: TZ
-          value: {{ .Values.timezone }}
-        - name: Z2MA_SETTINGS__MQTTSERVER
-        {{- $server := default "mqtt://localhost:1883" .Values.config.mqtt.server -}}
-        {{- $protocol := (split "://" $server)._0 }}
-        {{- $domain := (split ":" (split "://" $server)._1)._0 }}
-        {{- $port := (split ":" $server)._2 }}
-          value: {{ $domain }}
-        {{- if eq $protocol "mqtts"}}
-        - name: Z2MA_SETTINGS__MQTTSECURE
-          value: "true"
-        {{- end }}
-        {{- if $port }}
-        - name: Z2MA_SETTINGS__MQTTPORT
-          value: {{ $port }}
-        {{- end }}
-        {{- if .Values.config.mqtt.user }}
-        - name: Z2MA_SETTINGS__MQTTUSERNAME
-          value: {{ .Values.config.mqtt.user }}
-        {{- end }}
-        {{- if .Values.config.mqtt.password }}
-        - name: Z2MA_SETTINGS__MQTTPASSWORD
-          value: {{ .Values.config.mqtt.password }}
-        {{- end }}
-        {{- if .Values.config.mqtt.base_topic }}
-        - name: Z2MA_SETTINGS__BASETOPIC
-          value: {{ .Values.config.mqtt.base_topic }}
-        {{- end }}
-        {{- if and .Values.config.homeassistant .Values.config.advanced.homeassistant_discovery_topic }}
-        - name: Z2MA_SETTINGS__HOMEASSISTANTDISCOVERYBASETOPIC
-          value: {{ .Values.config.advanced.homeassistant_discovery_topic }}
-        {{- end }}
-        - name: Z2MA_SETTINGS__LOWBATTERYTHRESHOLD
-          value: {{ .Values.ui.settings.lowBatteryThreshold | quote }}
-        - name: Z2MA_SETTINGS__ALLOWJOINTIMEOUT
-          value: {{ .Values.ui.settings.allowJoinTimeout | quote }}
-        - name: Z2MA_SETTINGS__AUTOSETLASTSEEN
-          value: {{ .Values.ui.settings.autosetLastSeen | quote }}
-        - name: Z2MA_SETTINGS__DEVICESPOLLINGSCHEDULE
-          value: {{ .Values.ui.settings.devicesPollingSchedule | quote }}
-        - name: Z2MA_SETTINGS__NETWORKSCANSCHEDULE
-          value: {{ .Values.ui.settings.networkScanSchedule | quote }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "zigbee2mqtt.fullname" . }}assistant
       {{- end }}
       volumes:
       - name: zigbee2mqtt

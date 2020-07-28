@@ -7,7 +7,7 @@ WARNING: You have not set a network key, which makes zigbee2mqtt run with a well
 Please read https://www.zigbee2mqtt.io/how_tos/how_to_secure_network.html
   {{- end }}
 {{- end }}
-{{- if .Values.ui.enabled }}
+{{- if .Values.assistant.enabled }}
 Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
 {{- range .Values.ingress.hosts }}
