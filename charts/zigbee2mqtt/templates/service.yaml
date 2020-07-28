@@ -5,45 +5,45 @@ metadata:
   name: {{ template "zigbee2mqtt.fullname" . }}
   labels:
 {{ include "zigbee2mqtt.labels" . | indent 4 }}
-{{- if .Values.ui.service.labels }}
-{{ toYaml .Values.ui.service.labels | indent 4 }}
+{{- if .Values.service.labels }}
+{{ toYaml .Values.service.labels | indent 4 }}
 {{- end }}
-{{- with .Values.ui.service.annotations }}
+{{- with .Values.service.annotations }}
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-{{- if (or (eq .Values.ui.service.type "ClusterIP") (empty .Values.ui.service.type)) }}
+{{- if (or (eq .Values.service.type "ClusterIP") (empty .Values.service.type)) }}
   type: ClusterIP
-  {{- if .Values.ui.service.clusterIP }}
-  clusterIP: {{ .Values.ui.service.clusterIP }}
+  {{- if .Values.service.clusterIP }}
+  clusterIP: {{ .Values.service.clusterIP }}
   {{end}}
-{{- else if eq .Values.ui.service.type "LoadBalancer" }}
-  type: {{ .Values.ui.service.type }}
-  {{- if .Values.ui.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.ui.service.loadBalancerIP }}
+{{- else if eq .Values.service.type "LoadBalancer" }}
+  type: {{ .Values.service.type }}
+  {{- if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}
-  {{- if .Values.ui.service.loadBalancerSourceRanges }}
+  {{- if .Values.service.loadBalancerSourceRanges }}
   loadBalancerSourceRanges:
-{{ toYaml .Values.ui.service.loadBalancerSourceRanges | indent 4 }}
+{{ toYaml .Values.service.loadBalancerSourceRanges | indent 4 }}
   {{- end -}}
 {{- else }}
-  type: {{ .Values.ui.service.type }}
+  type: {{ .Values.service.type }}
 {{- end }}
-{{- if .Values.ui.service.externalIPs }}
+{{- if .Values.service.externalIPs }}
   externalIPs:
-{{ toYaml .Values.ui.service.externalIPs | indent 4 }}
+{{ toYaml .Values.service.externalIPs | indent 4 }}
 {{- end }}
-  {{- if .Values.ui.service.externalTrafficPolicy }}
-  externalTrafficPolicy: {{ .Values.ui.service.externalTrafficPolicy }}
+  {{- if .Values.service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
   {{- end }}
   ports:
     - name: http
-      port: {{ .Values.ui.service.port }}
+      port: {{ .Values.service.port }}
       protocol: TCP
       targetPort: http
-{{ if (and (eq .Values.ui.service.type "NodePort") (not (empty .Values.ui.service.nodePort))) }}
-      nodePort: {{.Values.ui.service.nodePort}}
+{{ if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort))) }}
+      nodePort: {{.Values.service.nodePort}}
 {{ end }}
   selector:
     app.kubernetes.io/name: {{ include "zigbee2mqtt.name" . }}
