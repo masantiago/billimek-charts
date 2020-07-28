@@ -64,17 +64,17 @@ spec:
             path: /
             port: http
             scheme: HTTP
-          initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
-          failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
-          timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+          initialDelaySeconds: {{ .Values.assistant.probes.liveness.initialDelaySeconds }}
+          failureThreshold: {{ .Values.assistant.probes.liveness.failureThreshold }}
+          timeoutSeconds: {{ .Values.assistant.probes.liveness.timeoutSeconds }}
         readinessProbe:
           httpGet:
             path: /
             port: http
             scheme: HTTP
-          initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
-          failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
-          timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+          initialDelaySeconds: {{ .Values.assistant.probes.readiness.initialDelaySeconds }}
+          failureThreshold: {{ .Values.assistant.probes.readiness.failureThreshold }}
+          timeoutSeconds: {{ .Values.assistant.probes.readiness.timeoutSeconds }}
         envFrom:
         - configMapRef:
             name: {{ include "zigbee2mqtt.fullname" . }}assistant
