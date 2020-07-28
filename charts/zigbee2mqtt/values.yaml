@@ -46,9 +46,9 @@ assistant:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is latest.
     tag: ""
-  # Config values from https://github.com/yllibed/Zigbee2MqttAssistant-
-  # MQTT (connection or topic) parameters come from general config, but they can be overriden.
-  # They are case insensitive.
+  # Config values from https://github.com/yllibed/Zigbee2MqttAssistant
+  # MQTT (connection or topic) parameters are retrieved from general config, but they can be overriden.
+  # All of them are case insensitive.
   config:
     lowBatteryThreshold: 30
     allowJoinTimeout: 20
